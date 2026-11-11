@@ -2,8 +2,12 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Lock, CheckCircle2 } from "lucide-react";
-import { PROJECTS, type Project } from "@/lib/data";
+import Link from "next/link";
+import { ArrowUpRight, Lock } from "lucide-react";
+import { PROJECTS } from "@/lib/data";
+import { Card, TagChip } from "@/components/ui/Card";
+import { EyebrowPill } from "@/components/ui/Heading";
+import { ActionButton } from "@/components/ui/Button";
 
 const CATEGORIES = [
   "All",
@@ -25,17 +29,17 @@ export function PortfolioGallery() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      {/* Filter Pill Row */}
-      <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full bg-surface-container-low border border-black/[0.04] w-fit">
+      {/* Filter Pill Row Matching Header Switcher */}
+      <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-surface-subtle border border-border w-fit">
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
             type="button"
             onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-2 rounded-full font-label-button text-[13px] transition-all ${
+            className={`px-4 py-2 rounded-full font-label-button text-[13px] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${
               activeCategory === cat
-                ? "bg-surface-container-lowest text-primary font-bold shadow-sm"
-                : "text-on-surface-variant hover:text-primary hover:bg-surface-container"
+                ? "bg-surface-dark text-white dark:bg-white dark:text-[#121212] font-semibold shadow-xs"
+                : "text-text-muted hover:text-text-primary hover:bg-surface-subtle-hover"
             }`}
           >
             {cat}
@@ -46,31 +50,33 @@ export function PortfolioGallery() {
       {/* Projects Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
         {filteredProjects.map((project, idx) => (
-          <div
+          <Card
             key={project.id}
+            surface="light"
+            padding="md"
             className={`${
               idx % 3 === 0 ? "lg:col-span-7" : idx % 3 === 1 ? "lg:col-span-5" : "lg:col-span-12"
-            } bg-surface-container-lowest rounded-[28px] p-6 sm:p-9 border border-black/[0.04] shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow`}
+            } group h-full`}
           >
             <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-label-caps text-[11px] uppercase text-brand-accent-text tracking-[0.12em] font-semibold">
                   {project.category}
                 </span>
-                <span className="px-3 py-1 rounded-full bg-surface-container text-xs font-bold text-primary">
-                  {project.metrics}
-                </span>
+                {project.metrics && (
+                  <TagChip surface="light">{project.metrics}</TagChip>
+                )}
               </div>
-              <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-primary font-semibold">
+              <h3 className="font-headline-md text-[22px] sm:text-[26px] text-text-primary tracking-[-0.025em] font-semibold">
                 {project.title}
               </h3>
-              <p className="font-body-md text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
+              <p className="font-body-md text-[14px] sm:text-[15px] text-text-muted leading-relaxed">
                 {project.description}
               </p>
             </div>
 
             {/* Media Box */}
-            <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden mt-6 relative border border-black/[0.06]">
+            <div className="w-full h-56 sm:h-72 rounded-[16px] sm:rounded-[20px] overflow-hidden mt-6 relative border border-border bg-surface-dark">
               <Image
                 src={project.image}
                 alt={project.title}
@@ -78,63 +84,59 @@ export function PortfolioGallery() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                <span className="font-label-caps text-white/95 uppercase tracking-wider backdrop-blur-md px-3 py-1 rounded-full bg-black/40 border border-white/10 text-[11px]">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-end">
+                <span className="font-label-caps text-white/95 uppercase tracking-[0.10em] backdrop-blur-md px-3 py-1.5 rounded-full bg-surface-dark/65 border border-white/[0.16] text-[10px] sm:text-[11px] font-medium">
                   {project.badge}
                 </span>
               </div>
             </div>
 
             {/* Tags & Action */}
-            <div className="pt-6 border-t border-black/[0.04] mt-6 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-6 border-t border-border mt-6 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap gap-1.5">
                 {project.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2.5 py-0.5 rounded-full bg-surface-container text-[11px] font-medium text-on-surface"
-                  >
+                  <TagChip key={t} surface="light">
                     {t}
-                  </span>
+                  </TagChip>
                 ))}
               </div>
-              <a
+              <Link
                 href="/contact"
-                className="inline-flex items-center gap-1 text-[13px] font-semibold text-primary hover:text-[#ff5a1f] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-text-primary hover:text-brand-accent-text transition-colors"
               >
                 <span>Request case study data</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+                <ArrowUpRight className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+              </Link>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
       {/* NDA Architectural Benchmark (Dark Card) */}
-      <div className="bg-tertiary text-white rounded-[28px] p-6 sm:p-10 border border-white/[0.08] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden mt-4">
-        <div className="flex flex-col gap-3 max-w-2xl">
-          <div className="flex items-center gap-2 text-[#ff5a1f]">
-            <Lock className="w-5 h-5" />
-            <span className="font-label-caps text-label-caps uppercase tracking-wider font-semibold">
+      <Card surface="dark" padding="lg" className="mt-2">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex flex-col gap-3 max-w-2xl">
+            <EyebrowPill surface="dark" icon={Lock}>
               Confidential Client Projects
-            </span>
+            </EyebrowPill>
+            <h3 className="font-headline-md text-[22px] sm:text-[26px] text-on-dark font-medium tracking-[-0.02em]">
+              Want to review architectural schematics under NDA?
+            </h3>
+            <p className="font-body-md text-[15px] text-on-dark-muted leading-relaxed">
+              Much of our core engineering work for U.S. fintech, medical, and defense contractors is protected by strict non-disclosure agreements. We can provide a private architectural walkthrough of sanitized codebases and schemas.
+            </p>
           </div>
-          <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-white font-semibold">
-            Want to review architectural schematics under NDA?
-          </h3>
-          <p className="font-body-md text-[#cac6c3] leading-relaxed">
-            Much of our core engineering work for U.S. fintech, medical, and defense contractors is protected by strict non-disclosure agreements. We can provide a private architectural walkthrough of sanitized codebases and schemas.
-          </p>
+          <div className="flex-shrink-0">
+            <ActionButton href="/contact" variant="primary" surface="dark" size="lg">
+              Request NDA Walkthrough
+            </ActionButton>
+          </div>
         </div>
-        <div className="flex-shrink-0">
-          <a
-            href="/contact"
-            className="h-12 px-7 rounded-full bg-white text-primary font-semibold text-[14px] inline-flex items-center justify-center hover:bg-neutral-200 transition-colors shadow-md"
-          >
-            Request NDA Walkthrough
-          </a>
-        </div>
-      </div>
+      </Card>
     </div>
   );
 }
-

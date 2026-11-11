@@ -6,6 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Clock, MapPin, CheckCircle2 } from "lucide-react";
 import { contactFormSchema, type ContactFormData } from "@/lib/validations";
 import { SITE_CONFIG } from "@/lib/data";
+import { Section } from "@/components/ui/Section";
+import { EyebrowPill } from "@/components/ui/Heading";
+import { Card } from "@/components/ui/Card";
+import { ActionButton } from "@/components/ui/Button";
 
 export function ContactBento() {
   const [submitted, setSubmitted] = useState(false);
@@ -20,25 +24,26 @@ export function ContactBento() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Simulate API call
+    void data;
     await new Promise((resolve) => setTimeout(resolve, 800));
     setSubmitted(true);
     reset();
   };
 
+  const inputBase =
+    "w-full bg-background text-text-primary placeholder:text-text-subtle/80 font-body-md text-[15px] outline-none border transition-all focus-visible:ring-2 focus-visible:ring-brand-primary/25";
+
   return (
-    <section className="w-full" id="contact">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Contact Information Card (5 Cols Dark Card) */}
-        <div className="lg:col-span-5 bg-tertiary text-on-tertiary rounded-[28px] p-6 sm:p-9 flex flex-col justify-between border border-white/[0.08] shadow-xl relative overflow-hidden">
+    <Section surface="plain" id="contact">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
+        {/* Contact Information Card (5 Cols Hero Dark Surface) */}
+        <Card surface="dark" padding="lg" className="lg:col-span-5">
           <div className="flex flex-col gap-4">
-            <span className="font-label-caps text-label-caps uppercase text-[#868381] tracking-[0.08em]">
-              Start A Project
-            </span>
-            <h2 className="font-headline-lg text-headline-sm sm:text-headline-lg text-white tracking-[-0.03em] font-semibold">
+            <EyebrowPill surface="dark">Start A Project</EyebrowPill>
+            <h2 className="font-headline-lg text-[clamp(1.75rem,3vw,2.5rem)] text-on-dark tracking-[-0.03em] font-medium leading-[1.1] mt-1">
               Tell us what you&apos;re building.
             </h2>
-            <p className="font-body-md text-body-md text-[#cac6c3] leading-relaxed">
+            <p className="font-body-md text-[15px] text-on-dark-muted leading-relaxed">
               Share your vision with us. We review your scope and reply with a detailed
               architectural proposal within 24 hours.
             </p>
@@ -47,71 +52,74 @@ export function ContactBento() {
           <div className="py-8 flex flex-col gap-4">
             <a
               href={`mailto:${SITE_CONFIG.contactEmail}`}
-              className="flex items-center gap-3 text-white hover:text-[#ff5a1f] transition-colors"
+              className="flex items-center gap-3.5 text-on-dark hover:text-brand-primary transition-colors group"
             >
-              <div className="w-9 h-9 rounded-full bg-white/[0.08] flex items-center justify-center text-[#ff5a1f]">
-                <Mail className="w-4 h-4" />
+              <div className="w-10 h-10 rounded-full bg-white/[0.06] border border-border-dark flex items-center justify-center text-brand-primary shrink-0 group-hover:border-brand-primary/50 transition-colors">
+                <Mail className="w-4 h-4" aria-hidden="true" />
               </div>
-              <span className="font-body-md text-body-md font-medium">
+              <span className="font-body-md text-[15px] font-medium">
                 {SITE_CONFIG.contactEmail}
               </span>
             </a>
 
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/[0.08] flex items-center justify-center text-[#ff5a1f]">
-                <Clock className="w-4 h-4" />
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-full bg-white/[0.06] border border-border-dark flex items-center justify-center text-brand-primary shrink-0">
+                <Clock className="w-4 h-4" aria-hidden="true" />
               </div>
-              <span className="font-body-md text-body-md text-[#cac6c3]">
+              <span className="font-body-md text-[15px] text-on-dark-muted">
                 {SITE_CONFIG.scheduleTimezone}
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/[0.08] flex items-center justify-center text-[#ff5a1f]">
-                <MapPin className="w-4 h-4" />
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-full bg-white/[0.06] border border-border-dark flex items-center justify-center text-brand-primary shrink-0">
+                <MapPin className="w-4 h-4" aria-hidden="true" />
               </div>
-              <span className="font-body-md text-body-md text-[#cac6c3]">
+              <span className="font-body-md text-[15px] text-on-dark-muted">
                 {SITE_CONFIG.deliveryScope}
               </span>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-white/[0.08]">
-            <span className="font-label-caps text-label-caps text-[#cac6c3] uppercase tracking-[0.08em] flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Direct Founder & Principal Access
+          <div className="pt-5 border-t border-border-dark">
+            <span className="font-label-caps text-[10px] sm:text-[11px] text-on-dark-muted uppercase tracking-[0.12em] flex items-center gap-2 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse shrink-0" aria-hidden="true" />
+              Direct Founder &amp; Principal Access
             </span>
           </div>
-        </div>
+        </Card>
 
-        {/* Contact Form Card (7 Cols White Card) */}
-        <div className="lg:col-span-7 bg-surface-container-lowest rounded-[28px] p-6 sm:p-9 flex flex-col justify-between border border-black/[0.04] shadow-sm">
+        {/* Contact Form Card (7 Cols Light Surface) */}
+        <Card surface="light" padding="lg" hoverable={false} className="lg:col-span-7">
           {submitted ? (
             <div className="my-auto py-12 flex flex-col items-center justify-center text-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                <CheckCircle2 className="w-8 h-8" />
+              <div className="w-16 h-16 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary flex items-center justify-center">
+                <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
               </div>
-              <h3 className="font-headline-md text-headline-md font-semibold text-primary">
+              <h3 className="font-headline-md text-[26px] font-semibold text-text-primary">
                 Inquiry Received
               </h3>
-              <p className="font-body-md text-on-surface-variant max-w-md">
+              <p className="font-body-md text-[15px] text-text-muted max-w-md leading-relaxed">
                 Thank you for reaching out. A principal engineer will review your project details and follow up within 24 hours.
               </p>
-              <button
+              <ActionButton
                 type="button"
+                variant="secondary"
+                surface="light"
                 onClick={() => setSubmitted(false)}
-                className="mt-4 px-6 py-2.5 rounded-full bg-surface-container text-primary font-semibold text-sm hover:bg-surface-dim transition-colors"
+                className="mt-2"
+                showArrow={false}
               >
                 Send another message
-              </button>
+              </ActionButton>
             </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
               {/* Full Name */}
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="name"
-                  className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]"
+                  className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase text-text-muted tracking-[0.12em]"
                 >
                   Full Name
                 </label>
@@ -120,10 +128,10 @@ export function ContactBento() {
                   type="text"
                   placeholder="Sarah Jenkins"
                   {...register("name")}
-                  className={`w-full h-[52px] rounded-full px-6 bg-surface text-primary placeholder:text-on-surface-variant/60 font-body-md text-body-md outline-none border transition-all ${
+                  className={`${inputBase} h-[52px] rounded-full px-6 ${
                     errors.name
-                      ? "border-red-400 bg-red-50/20"
-                      : "border-black/[0.05] focus:border-[#ff5a1f] focus:bg-white"
+                      ? "border-red-500 bg-red-500/5"
+                      : "border-border focus:border-brand-primary focus:bg-surface"
                   }`}
                 />
                 {errors.name && (
@@ -135,7 +143,7 @@ export function ContactBento() {
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="email"
-                  className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]"
+                  className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase text-text-muted tracking-[0.12em]"
                 >
                   Work Email
                 </label>
@@ -144,10 +152,10 @@ export function ContactBento() {
                   type="email"
                   placeholder="sarah@company.com"
                   {...register("email")}
-                  className={`w-full h-[52px] rounded-full px-6 bg-surface text-primary placeholder:text-on-surface-variant/60 font-body-md text-body-md outline-none border transition-all ${
+                  className={`${inputBase} h-[52px] rounded-full px-6 ${
                     errors.email
-                      ? "border-red-400 bg-red-50/20"
-                      : "border-black/[0.05] focus:border-[#ff5a1f] focus:bg-white"
+                      ? "border-red-500 bg-red-50/20"
+                      : "border-border focus:border-brand-primary focus:bg-surface"
                   }`}
                 />
                 {errors.email && (
@@ -160,18 +168,18 @@ export function ContactBento() {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="service"
-                    className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]"
+                    className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase text-text-muted tracking-[0.12em]"
                   >
                     Primary Focus
                   </label>
                   <select
                     id="service"
                     {...register("service")}
-                    className="w-full h-[52px] rounded-full px-5 bg-surface text-primary font-body-md text-body-md outline-none border border-black/[0.05] focus:border-[#ff5a1f] focus:bg-white cursor-pointer"
+                    className={`${inputBase} h-[52px] rounded-full px-5 border-border focus:border-brand-primary focus:bg-surface cursor-pointer`}
                   >
-                    <option value="web-dev">Web Design & Development</option>
+                    <option value="web-dev">Web Design &amp; Development</option>
                     <option value="ui-ux">UI/UX Design Systems</option>
-                    <option value="custom-software">Custom Software & APIs</option>
+                    <option value="custom-software">Custom Software &amp; APIs</option>
                     <option value="mobile-apps">Mobile Apps (iOS/Android)</option>
                     <option value="ecommerce">Headless E-commerce</option>
                   </select>
@@ -180,14 +188,14 @@ export function ContactBento() {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="budget"
-                    className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]"
+                    className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase text-text-muted tracking-[0.12em]"
                   >
                     Target Budget
                   </label>
                   <select
                     id="budget"
                     {...register("budget")}
-                    className="w-full h-[52px] rounded-full px-5 bg-surface text-primary font-body-md text-body-md outline-none border border-black/[0.05] focus:border-[#ff5a1f] focus:bg-white cursor-pointer"
+                    className={`${inputBase} h-[52px] rounded-full px-5 border-border focus:border-brand-primary focus:bg-surface cursor-pointer`}
                   >
                     <option value="15k-30k">$15,000 – $30,000</option>
                     <option value="30k-60k">$30,000 – $60,000</option>
@@ -201,7 +209,7 @@ export function ContactBento() {
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="message"
-                  className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]"
+                  className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase text-text-muted tracking-[0.12em]"
                 >
                   Project Details
                 </label>
@@ -210,10 +218,10 @@ export function ContactBento() {
                   rows={4}
                   placeholder="Tell us about your timeline, scope, and technical goals..."
                   {...register("message")}
-                  className={`w-full rounded-[20px] p-5 bg-surface text-primary placeholder:text-on-surface-variant/60 font-body-md text-body-md outline-none border resize-none transition-all ${
+                  className={`${inputBase} rounded-[20px] p-5 resize-none ${
                     errors.message
-                      ? "border-red-400 bg-red-50/20"
-                      : "border-black/[0.05] focus:border-[#ff5a1f] focus:bg-white"
+                      ? "border-red-500 bg-red-500/5"
+                      : "border-border focus:border-brand-primary focus:bg-surface"
                   }`}
                 />
                 {errors.message && (
@@ -222,23 +230,25 @@ export function ContactBento() {
               </div>
 
               {/* Submit & SLA */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <button
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <ActionButton
                   type="submit"
+                  variant="primary"
+                  surface="light"
+                  size="md"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto h-12 px-8 rounded-full bg-gradient-to-r from-[#ff5a1f] to-[#e04810] text-white font-label-button text-[14px] hover:shadow-[0_8px_24px_-4px_rgba(255,90,31,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all font-semibold disabled:opacity-50"
+                  className="w-full sm:w-auto"
                 >
                   {isSubmitting ? "Sending..." : "Send request"}
-                </button>
-                <span className="font-label-caps text-label-caps text-on-surface-variant">
+                </ActionButton>
+                <span className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">
                   Response within 24h
                 </span>
               </div>
             </form>
           )}
-        </div>
+        </Card>
       </div>
-    </section>
+    </Section>
   );
 }
-

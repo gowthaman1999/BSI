@@ -1,4 +1,5 @@
 import React from "react";
+import { PageShell } from "@/components/ui/Section";
 import { HeroBento } from "@/components/sections/home/HeroBento";
 import { SocialProof } from "@/components/sections/home/SocialProof";
 import { ServicesSection } from "@/components/sections/home/ServicesSection";
@@ -10,33 +11,30 @@ import { ContactBento } from "@/components/sections/home/ContactBento";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col w-full">
-      <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-8 sm:py-12 flex flex-col gap-12 sm:gap-20">
-        {/* 1. HERO BENTO SECTION */}
-        <HeroBento />
+    <PageShell>
+      {/* 1. HERO SECTION */}
+      <HeroBento />
 
-        {/* 2. SOCIAL PROOF ROW */}
-        <SocialProof />
+      {/* 2. SOCIAL PROOF ROW */}
+      <SocialProof />
 
-        {/* 3. SERVICES SECTION */}
-        <ServicesSection />
+      {/* 3. SERVICES SECTION */}
+      <ServicesSection />
 
-        {/* 4. PROCESS SECTION */}
-        <ProcessSection />
+      {/* 4. PROCESS SECTION */}
+      <ProcessSection />
 
-        {/* 5. SELECTED WORK SECTION */}
-        <SelectedWorkSection />
+      {/* 5. SELECTED WORK SECTION */}
+      <SelectedWorkSection />
 
-        {/* 6. BUILT FOR U.S. TEAMS SECTION */}
-        <BuiltForUSTeams />
+      {/* 6. BUILT FOR U.S. TEAMS SECTION */}
+      <BuiltForUSTeams />
 
-        {/* 7. FAQ SECTION */}
-        <FAQSection />
+      {/* 7. FAQ SECTION */}
+      <FAQSection />
 
-        {/* 8. CONTACT BENTO SECTION */}
-        <ContactBento />
-      </div>
-    </div>
+      {/* 8. CONTACT BENTO SECTION */}
+      <ContactBento />
+    </PageShell>
   );
 }
-

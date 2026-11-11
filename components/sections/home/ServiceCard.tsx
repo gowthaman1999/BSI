@@ -2,52 +2,49 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { type ServiceItem } from "@/lib/data";
+import { Card, TagChip } from "@/components/ui/Card";
+import { ActionButton } from "@/components/ui/Button";
+import { EyebrowPill } from "@/components/ui/Heading";
 
 interface ServiceCardProps {
   service: ServiceItem;
 }
 
 export function ServiceCard({ service }: ServiceCardProps) {
-  // Dark marketing banner variant
   if (service.isDark || service.variant === "dark") {
     return (
-      <div
-        className={`${
-          service.colSpan || "lg:col-span-12 md:col-span-2"
-        } bg-tertiary text-on-tertiary rounded-[28px] p-6 sm:p-9 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/[0.08] shadow-xl relative overflow-hidden h-full`}
+      <Card
+        surface="dark"
+        padding="lg"
+        className={`${service.colSpan || "lg:col-span-12 md:col-span-2"} h-full`}
       >
-        <div className="flex flex-col gap-2 max-w-xl">
-          <span className="font-label-caps text-label-caps uppercase text-[#868381] tracking-[0.08em]">
-            {service.domain}
-          </span>
-          <h3 className="font-headline-md text-headline-md text-white tracking-[-0.02em] font-semibold">
-            {service.title}
-          </h3>
-          <p className="font-body-md text-[15px] text-[#cac6c3] leading-relaxed">
-            {service.description}
-          </p>
-          <div className="flex flex-wrap gap-2 pt-2">
-            {service.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-white/[0.08] text-white font-label-caps text-label-caps rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex flex-col gap-3 max-w-xl">
+            <EyebrowPill surface="dark">{service.domain}</EyebrowPill>
+            <h3 className="font-headline-md text-[clamp(1.5rem,2.4vw,2rem)] text-on-dark tracking-[-0.025em] font-medium mt-1">
+              {service.title}
+            </h3>
+            <p className="font-body-md text-[15px] text-on-dark-muted leading-relaxed">
+              {service.description}
+            </p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {service.tags.map((tag) => (
+                <TagChip key={tag} surface="dark">
+                  {tag}
+                </TagChip>
+              ))}
+            </div>
+          </div>
+          <div className="flex-shrink-0">
+            <ActionButton href="/contact" variant="primary" surface="dark" size="lg">
+              Request marketing audit
+            </ActionButton>
           </div>
         </div>
-        <div className="flex-shrink-0">
-          <a
-            href="/contact"
-            className="h-12 px-7 rounded-full bg-gradient-to-r from-[#ff5a1f] to-[#e04810] text-white font-label-button text-[14px] inline-flex items-center justify-center hover:shadow-[0_8px_20px_-4px_rgba(255,90,31,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all font-semibold"
-          >
-            Request marketing audit
-          </a>
-        </div>
-      </div>
+      </Card>
     );
   }
 
@@ -55,157 +52,118 @@ export function ServiceCard({ service }: ServiceCardProps) {
   const isBottomImageVariant = service.variant === "bottom-image";
   const isTopImageVariant = service.variant === "top-image";
 
+  const renderMedia = (heightClass: string) =>
+    service.image ? (
+      <div
+        className={`relative rounded-[16px] overflow-hidden border border-border bg-surface-subtle ${heightClass}`}
+      >
+        <Image
+          src={service.image}
+          alt={service.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/60 via-transparent to-transparent"
+        />
+        {service.badge && (
+          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-end">
+            <span className="inline-flex items-center rounded-full border border-white/[0.16] bg-surface-dark/65 px-2.5 py-1 font-label-caps text-[10px] font-medium uppercase tracking-[0.10em] text-white/95 backdrop-blur-md">
+              {service.badge}
+            </span>
+          </div>
+        )}
+      </div>
+    ) : null;
+
   return (
-    <div
-      tabIndex={0}
-      className={`${
-        service.colSpan || ""
-      } bg-surface-container-lowest rounded-[28px] p-6 sm:p-9 flex flex-col justify-between border border-black/[0.04] shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a1f] focus-visible:ring-offset-2 h-full`}
+    <Card
+      surface="light"
+      padding="md"
+      className={`${service.colSpan || ""} group h-full focus-within:ring-2 focus-within:ring-brand-primary`}
     >
-      <div className="relative z-10 flex flex-col gap-3">
-        {/* 1. TOP BANNER IMAGE:
-            - Rendered on Mobile (<768px) and Tablet (768-1023px) for ALL service cards with images (position same as Custom software)
-            - Also rendered on Desktop for Custom Software (top-image variant)
-        */}
+      <div className="flex flex-col gap-3.5">
+        {/* Top banner image on mobile/tablet or top-image desktop variant */}
         {service.image && (
-          <div
-            className={`w-full h-36 rounded-2xl overflow-hidden mb-1 border border-black/[0.06] shadow-sm relative ${
-              isTopImageVariant ? "block" : "block lg:hidden"
-            }`}
-          >
-            <Image
-              src={service.image}
-              alt={service.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-            {service.badge && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-2.5">
-                <span className="font-label-caps text-label-caps text-white/90 uppercase tracking-widest px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/10">
-                  {service.badge}
-                </span>
-              </div>
-            )}
+          <div className={isTopImageVariant ? "block" : "block lg:hidden"}>
+            {renderMedia("w-full h-40 mb-1")}
           </div>
         )}
 
-        {/* 2. TOP HEADER ROW: Domain Overline + Action Arrow */}
-        <div className="flex items-center justify-between">
-          <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]">
+        {/* Top Header Row: Domain Overline + Hero-style Action Circle */}
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-label-caps text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-accent-text">
             {service.domain}
           </span>
-          <a
+          <Link
             href="/services"
-            className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-[#ff5a1f] group-hover:text-white transition-colors"
+            className="w-9 h-9 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-text-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-white group-hover:rotate-45 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
             aria-label={`Learn more about ${service.title}`}
           >
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          </Link>
         </div>
 
-        {/* 3. CARD BODY */}
+        {/* Card Body */}
         {isSideImageVariant && service.image ? (
-          /* Web design & development & UI/UX design:
-             Desktop: Two-column layout with title & description on left, image on the right side.
-             Mobile / Tablet: Standard title & description (image is already at the top banner).
-          */
           <>
-            {/* Desktop Two-Column Layout (Text Left, Image on Right) */}
             <div className="hidden lg:flex flex-row items-center justify-between gap-6">
               <div className="flex-1 min-w-0 flex flex-col gap-2.5">
-                <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-primary tracking-[-0.02em] font-semibold">
+                <h3 className="font-headline-md text-[22px] sm:text-[24px] text-text-primary tracking-[-0.025em] font-semibold">
                   {service.title}
                 </h3>
-                <p className="font-body-md text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
+                <p className="font-body-md text-[15px] text-text-muted leading-relaxed">
                   {service.description}
                 </p>
               </div>
-
-              {/* Right Side Image */}
-              <div className="relative w-48 xl:w-56 aspect-[4/3] rounded-2xl overflow-hidden border border-black/[0.06] shadow-sm shrink-0">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(min-width: 1280px) 224px, 192px"
-                />
-                {service.badge && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-2.5">
-                    <span className="font-label-caps text-label-caps text-white/90 uppercase tracking-widest px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/10">
-                      {service.badge}
-                    </span>
-                  </div>
-                )}
+              <div className="w-48 xl:w-56 shrink-0">
+                {renderMedia("aspect-[4/3] w-full")}
               </div>
             </div>
 
-            {/* Mobile / Tablet Layout: Standard Title & Description */}
             <div className="block lg:hidden flex flex-col gap-2">
-              <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-primary tracking-[-0.02em] font-semibold">
+              <h3 className="font-headline-md text-[22px] text-text-primary tracking-[-0.025em] font-semibold">
                 {service.title}
               </h3>
-              <p className="font-body-md text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
+              <p className="font-body-md text-[14px] text-text-muted leading-relaxed">
                 {service.description}
               </p>
             </div>
           </>
         ) : isBottomImageVariant && service.image ? (
-          /* Mobile apps & E-commerce:
-             Desktop: Title, Description, Image UNDER description.
-             Mobile / Tablet: Standard Title & Description (image is already at the top banner).
-          */
           <>
-            <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-primary tracking-[-0.02em] font-semibold">
+            <h3 className="font-headline-md text-[22px] sm:text-[24px] text-text-primary tracking-[-0.025em] font-semibold">
               {service.title}
             </h3>
-            <p className="font-body-md text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
+            <p className="font-body-md text-[14px] sm:text-[15px] text-text-muted leading-relaxed">
               {service.description}
             </p>
-
-            {/* Desktop Only: Image under description */}
-            <div className="hidden lg:block w-full h-36 rounded-2xl overflow-hidden mt-1 border border-black/[0.06] shadow-sm relative">
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 1280px) 33vw, 360px"
-              />
-              {service.badge && (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-2.5">
-                  <span className="font-label-caps text-label-caps text-white/90 uppercase tracking-widest px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/10">
-                    {service.badge}
-                  </span>
-                </div>
-              )}
+            <div className="hidden lg:block mt-1">
+              {renderMedia("w-full h-40")}
             </div>
           </>
         ) : (
-          /* Top-image (Custom Software) or default */
           <>
-            <h3 className="font-headline-md text-headline-sm sm:text-headline-md text-primary tracking-[-0.02em] font-semibold">
+            <h3 className="font-headline-md text-[22px] sm:text-[24px] text-text-primary tracking-[-0.025em] font-semibold">
               {service.title}
             </h3>
-            <p className="font-body-md text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
+            <p className="font-body-md text-[14px] sm:text-[15px] text-text-muted leading-relaxed">
               {service.description}
             </p>
           </>
         )}
       </div>
 
-      {/* 4. TAGS ROW */}
-      <div className="relative z-10 pt-6 flex flex-wrap items-center gap-2 border-t border-black/[0.04] mt-4">
+      {/* Tags Row */}
+      <div className="pt-5 flex flex-wrap items-center gap-2 border-t border-border mt-6">
         {service.tags.map((tag) => (
-          <span
-            key={tag}
-            className="px-3 py-1 bg-surface-container text-on-surface font-label-caps text-label-caps rounded-full"
-          >
+          <TagChip key={tag} surface="light">
             {tag}
-          </span>
+          </TagChip>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }

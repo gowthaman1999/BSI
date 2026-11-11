@@ -3,9 +3,80 @@
 @tailwind utilities;
 
 @layer base {
+  /* ==========================================================================
+     BLACKSTONE INFOMATICS — CENTRAL DESIGN TOKENS
+     Extracted from HeroBento (Single Source of Truth)
+     ========================================================================== */
   :root {
-    --background: 45 25% 97%;
-    --foreground: 120 3% 10%;
+    /* Core Light Mode Surfaces (RGB triplets for full Tailwind /opacity support) */
+    --bg-canvas: 250 249 246;
+    --bg-card: 255 255 255;
+    --bg-subtle: 243 242 238;
+    --bg-subtle-hover: 234 232 226;
+
+    /* Core Dark Signature Surfaces (HeroBento) */
+    --bg-dark: 18 18 18;
+    --bg-dark-elevated: 24 24 24;
+    --bg-dark-subtle: 28 27 27;
+    --bg-dark-deep: 14 14 14;
+
+    /* Typography Foreground Tokens (WCAG 2.2 AA Calibrated) */
+    --fg-primary: 18 18 18;
+    --fg-muted: 82 84 83;
+    --fg-subtle: 104 106 105;
+    --fg-on-dark: 255 255 255;
+    --fg-on-dark-muted: 202 198 195;
+    --fg-on-dark-subtle: 163 159 156;
+
+    /* Brand Accent (Terracotta / Studio Orange) */
+    --accent: 255 90 31;
+    --accent-hover: 253 89 30;
+    --accent-text: 201 59 8; /* >= 4.9:1 contrast on light surfaces */
+    --accent-soft: rgba(255, 90, 31, 0.12);
+    --accent-glow: rgba(255, 90, 31, 0.20);
+
+    /* Borders & Dividers */
+    --border-subtle: rgba(18, 18, 18, 0.08);
+    --border-strong: rgba(18, 18, 18, 0.16);
+    --border-dark: rgba(255, 255, 255, 0.08);
+    --border-dark-strong: rgba(255, 255, 255, 0.15);
+
+    /* Radii System */
+    --radius-shell: 32px;
+    --radius-card: 24px;
+    --radius-media: 20px;
+    --radius-tag: 6px;
+    --radius-pill: 9999px;
+
+    /* Elevation & Ambient Shadows */
+    --shadow-card: 0 4px 24px -4px rgba(18, 18, 18, 0.04);
+    --shadow-card-hover: 0 18px 44px -14px rgba(18, 18, 18, 0.10);
+    --shadow-dark: 0 24px 80px -20px rgba(0, 0, 0, 0.45);
+    --shadow-cta: 0 12px 32px -8px rgba(255, 90, 31, 0.45);
+    --shadow-cta-hover: 0 16px 38px -8px rgba(255, 90, 31, 0.60);
+
+    /* Motion Tokens */
+    --ease-hero: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dark {
+    --bg-canvas: 11 11 11;
+    --bg-card: 20 20 20;
+    --bg-subtle: 28 27 27;
+    --bg-subtle-hover: 37 36 36;
+
+    --fg-primary: 246 245 242;
+    --fg-muted: 202 198 195;
+    --fg-subtle: 158 155 153;
+
+    --accent-text: 255 122 73;
+    --accent-soft: rgba(255, 90, 31, 0.18);
+
+    --border-subtle: rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(255, 255, 255, 0.18);
+
+    --shadow-card: 0 8px 30px -8px rgba(0, 0, 0, 0.50);
+    --shadow-card-hover: 0 20px 48px -12px rgba(0, 0, 0, 0.72);
   }
 
   html {
@@ -15,50 +86,61 @@
   }
 
   body {
-    background-color: #faf9f6;
-    color: #1a1c1a;
+    background-color: rgb(var(--bg-canvas));
+    color: rgb(var(--fg-primary));
     font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   ::selection {
-    background-color: #ff5a1f;
-    color: #ffffff;
+    background-color: rgb(var(--accent));
+    color: rgb(var(--fg-on-dark));
   }
 }
 
-/* Subtle modern scrollbar */
+@layer utilities {
+  /* Hero signature dark radial lighting */
+  .hero-surface-dark {
+    background-color: rgb(var(--bg-dark));
+    background-image:
+      radial-gradient(62% 58% at 80% 26%, rgba(255, 90, 31, 0.20) 0%, rgba(253, 89, 30, 0.07) 44%, transparent 74%),
+      radial-gradient(50% 45% at 64% 62%, rgba(255, 90, 31, 0.10) 0%, transparent 70%),
+      linear-gradient(180deg, rgb(var(--bg-dark-elevated)) 0%, rgb(var(--bg-dark)) 55%, rgb(var(--bg-dark-deep)) 100%);
+  }
+
+  /* Faint upper-left architectural diagonal texture from Hero */
+  .hero-diagonal-pattern {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+    mask-image: radial-gradient(85% 75% at 22% 18%, black 0%, rgba(0, 0, 0, 0.35) 55%, transparent 100%);
+    -webkit-mask-image: radial-gradient(85% 75% at 22% 18%, black 0%, rgba(0, 0, 0, 0.35) 55%, transparent 100%);
+  }
+
+  /* Subtle light surface radial warmth */
+  .hero-surface-light-glow {
+    background-image: radial-gradient(55% 60% at 85% 15%, rgba(255, 90, 31, 0.06) 0%, transparent 70%);
+  }
+}
+
+/* Custom Scrollbar Aligned to Hero Tokens */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #faf9f6;
+  background: rgb(var(--bg-canvas));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dadad7;
+  background: var(--border-strong);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c4c7c7;
+  background: rgb(var(--fg-subtle));
 }
-
-/* Custom Stitch Utility Classes */
-.bento-card {
-  border-radius: 28px;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.bento-card-dark {
-  border-radius: 28px;
-  background-color: #121212;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-}
-

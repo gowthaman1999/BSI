@@ -1,96 +1,156 @@
 "use client";
 
-import React from "react";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import React, { useRef } from "react";
+import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { Section, Reveal, HERO_EASE } from "@/components/ui/Section";
+import { EyebrowPill } from "@/components/ui/Heading";
+import { ActionButton } from "@/components/ui/Button";
 
 export function HeroBento() {
+  const imageFrameRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: imageFrameRef,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ["0%", "0%"] : ["-5%", "5%"]
+  );
+
+  const parallaxScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? [1, 1] : [1.06, 1]
+  );
+
   return (
-    <section className="w-full">
-      <div className="relative rounded-[32px] p-2 sm:p-3 overflow-hidden bg-gradient-to-br from-[#faf9f6] via-[#f5f4ef] to-[#edece6] border border-black/[0.05] shadow-[0_20px_60px_-15px_rgba(255,90,31,0.06)]">
-        {/* Subtle Ambient Glows */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-br from-[#ff5a1f]/10 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-gradient-to-tr from-[#1c1b1b]/5 to-transparent blur-3xl pointer-events-none" />
+    <Section
+      surface="dark-inset"
+      ariaLabel="Hero"
+      innerClassName="pt-6 sm:pt-12 lg:pt-14 pb-4 sm:pb-8 lg:pb-10"
+    >
+      {/* 1. Top-Left Pill / Eyebrow Tag */}
+      <Reveal immediate delay={0}>
+        <EyebrowPill surface="dark">
+          Digital Studio for U.S. Businesses
+        </EyebrowPill>
+      </Reveal>
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* Main Hero Card (8 Cols) */}
-          <div className="lg:col-span-8 bg-gradient-to-b from-[#ffffff] to-[#fbfbf9] border border-black/[0.06] rounded-[28px] p-6 sm:p-9 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-            <div className="flex flex-col gap-4">
-              <div className="inline-flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#ff5a1f] animate-pulse" />
-                <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.08em]">
-                  Digital Studio for U.S. Businesses
-                </span>
-              </div>
-              <h1 className="font-display-hero text-headline-lg-mobile sm:text-headline-lg lg:text-display-hero tracking-[-0.03em] font-semibold leading-tight text-transparent bg-clip-text bg-gradient-to-br from-[#111111] via-[#222222] to-[#444444]">
-                Clean design.
-                <br />
-                Serious engineering.
-              </h1>
-              <p className="font-body-lg text-body-md sm:text-body-lg text-on-surface-variant max-w-2xl mt-2 leading-relaxed">
-                We partner with ambitious U.S. teams to design and engineer scalable web
-                applications, modern brand identities, and high-performance digital products.
-              </p>
-            </div>
+      {/* 2. Large Left-Aligned 2-Line Headline */}
+      <motion.h1
+        initial={shouldReduceMotion ? false : { y: 14 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 0.05, ease: HERO_EASE }}
+        className="mt-4 sm:mt-6 font-display-hero text-[clamp(2.05rem,5.2vw,4.5rem)] font-medium leading-[1.06] tracking-[-0.03em] text-on-dark max-w-full lg:max-w-[64%]"
+      >
+        Clean design.
+        <br />
+        Serious engineering.
+      </motion.h1>
 
-            <div className="flex flex-wrap items-center gap-3 pt-8 sm:pt-10">
-              <a
-                href="/contact"
-                className="h-12 px-7 rounded-full bg-gradient-to-r from-primary to-[#2a2a2a] text-on-primary font-label-button text-[14px] inline-flex items-center justify-center hover:opacity-90 active:scale-[0.98] shadow-md transition-all"
-              >
-                Book a strategy call
-              </a>
-              <a
-                href="/portfolio"
-                className="h-12 px-7 rounded-full bg-surface-container-high border border-black/[0.05] text-primary font-label-button text-[14px] inline-flex items-center justify-center hover:bg-surface-dim active:scale-[0.98] transition-colors"
-              >
-                View our work
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column (4 Cols Stack) */}
-          <div className="lg:col-span-4 flex flex-col gap-4">
-            {/* Stat Card: Track Record */}
-            <div className="bg-gradient-to-b from-[#181818] to-[#121212] border border-white/[0.08] text-white rounded-[28px] p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff5a1f]/15 rounded-full blur-2xl pointer-events-none" />
-              <div className="flex items-center justify-between relative z-10">
-                <span className="font-label-caps text-label-caps uppercase tracking-[0.08em] text-[#868381]">
-                  Track Record
-                </span>
-                <CheckCircle2 className="w-6 h-6 text-[#ff5a1f]" />
-              </div>
-              <div className="my-auto py-4 relative z-10">
-                <div className="font-display-hero text-[64px] sm:text-[76px] lg:text-[80px] leading-none tracking-[-0.04em] font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] to-[#d8d8d8]">
-                  200+
-                </div>
-              </div>
-              <div className="relative z-10">
-                <p className="font-body-md text-[15px] text-[#cac6c3] leading-snug">
-                  projects delivered over 8+ years, with 100% support.
-                </p>
-              </div>
-            </div>
-
-            {/* Studio Workspace Image Card */}
-            <div className="relative rounded-[28px] overflow-hidden border border-black/[0.06] shadow-sm h-48 lg:h-full min-h-[170px] group">
-              <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk8H5D_lGy_eNTZOf-OmrfUXS7-CwwCvkecmtHk17g3y8JVX9dSxAaJyOku8uOfmC8y3phEv3eDILiTqx3JUv9xS4iJDxFr7TgL0Tp4d1-_mBh0B2McUgEozYJnJEIPfhRRxmlcIf1a1UM9v_UZG8v5UvHXx8oObZ8KZXnQFVkiR3gCC3MAlAf5SZmkGfU9J7mpkThcV4Rm_8BETFIQgGLOvKPql_KWaAbTCehoPnk"
-                alt="Blackstone Infomatics Studio Workspace"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                <span className="font-label-caps text-label-caps text-white/90 uppercase tracking-wider backdrop-blur-sm px-2.5 py-1 rounded-full bg-black/30 border border-white/10">
-                  Studio Workspace • EST / PST
-                </span>
-              </div>
-            </div>
-          </div>
+      {/* 3. Two-Column CTA + Supporting Subtext Row */}
+      <Reveal immediate delay={0.1} className="mt-5 sm:mt-9 grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start lg:items-center">
+        {/* Left: Primary CTA Pill + Secondary Work Link */}
+        <div className="lg:col-span-7 flex flex-wrap items-center gap-2.5 sm:gap-4">
+          <ActionButton href="/contact" variant="primary" surface="dark" size="lg">
+            Book a strategy call
+          </ActionButton>
+          <ActionButton href="/portfolio" variant="secondary" surface="dark" size="lg" showArrow={false}>
+            View our work
+          </ActionButton>
         </div>
-      </div>
-    </section>
+
+        {/* Right: Supporting Paragraph */}
+        <div className="lg:col-span-5">
+          <p className="font-body-lg text-[14px] sm:text-[16px] leading-relaxed text-on-dark-muted max-w-[460px]">
+            We partner with ambitious U.S. teams to design and engineer scalable web
+            applications, modern brand identities, and high-performance digital products.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* 4. Wide Bottom Hero Image Card with Scroll Parallax & Frosted Rating Badge */}
+      <motion.div
+        initial={shouldReduceMotion ? false : { y: 18 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.55, delay: 0.15, ease: HERO_EASE }}
+        ref={imageFrameRef}
+        className="relative mt-7 sm:mt-14 lg:mt-16 overflow-hidden rounded-[16px] sm:rounded-[22px] border border-white/[0.10] bg-surface-dark-subtle h-[290px] sm:h-[420px] lg:h-[470px] xl:h-[510px] shadow-[0_24px_64px_-16px_rgba(0,0,0,0.65)]"
+      >
+        {/* Parallax Image Container */}
+        <motion.div
+          style={{ y: parallaxY, scale: parallaxScale }}
+          className="absolute inset-x-0 -top-[8%] -bottom-[8%] will-change-transform"
+        >
+          <Image
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk8H5D_lGy_eNTZOf-OmrfUXS7-CwwCvkecmtHk17g3y8JVX9dSxAaJyOku8uOfmC8y3phEv3eDILiTqx3JUv9xS4iJDxFr7TgL0Tp4d1-_mBh0B2McUgEozYJnJEIPfhRRxmlcIf1a1UM9v_UZG8v5UvHXx8oObZ8KZXnQFVkiR3gCC3MAlAf5SZmkGfU9J7mpkThcV4Rm_8BETFIQgGLOvKPql_KWaAbTCehoPnk"
+            alt="Blackstone Infomatics Studio Workspace"
+            fill
+            priority
+            quality={100}
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 95vw"
+          />
+        </motion.div>
+
+        {/* Subtle Contrast Scrim for Overlaid Frosted Cards */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/65 via-transparent to-surface-dark/35"
+        />
+
+        {/* Top-Left Frosted-Glass Track Record / Laurel Badge */}
+        <div className="absolute top-3.5 left-3.5 sm:top-6 sm:left-6 z-10 max-w-[225px] sm:max-w-[265px] rounded-[16px] sm:rounded-[20px] border border-white/[0.16] bg-surface-dark/60 p-3.5 sm:p-5 text-on-dark backdrop-blur-md shadow-2xl">
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-on-dark-muted">
+              Track Record
+            </span>
+            <CheckCircle2 className="h-4 w-4 text-brand-primary shrink-0" aria-hidden="true" />
+          </div>
+
+          <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2 sm:gap-2.5">
+            <Image
+              src="/images/leafs.svg"
+              alt=""
+              width={42}
+              height={91}
+              className="h-9 sm:h-11 w-auto opacity-85"
+            />
+            <span className="font-display-hero text-[36px] sm:text-[44px] leading-none tracking-[-0.04em] font-semibold text-on-dark">
+              200+
+            </span>
+            <Image
+              src="/images/leafs.svg"
+              alt=""
+              width={42}
+              height={91}
+              className="h-9 sm:h-11 w-auto opacity-85 -scale-x-100"
+            />
+          </div>
+
+          <p className="mt-2 sm:mt-2.5 text-center font-body-md text-[12px] sm:text-[13px] leading-snug text-white/85">
+            projects delivered over 8+ years, with 100% support.
+          </p>
+        </div>
+
+        {/* Bottom-Right Subtle Studio Pill */}
+        <div className="absolute bottom-3.5 right-3.5 sm:bottom-6 sm:right-6 z-10">
+          <span className="inline-flex items-center rounded-full border border-white/[0.16] bg-surface-dark/60 px-3 py-1.5 font-label-caps text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.10em] text-white/90 backdrop-blur-md">
+            Studio Workspace • EST / PST
+          </span>
+        </div>
+      </motion.div>
+    </Section>
   );
 }
-
