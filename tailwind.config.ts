@@ -33,9 +33,10 @@ const config: Config = {
         /* Brand Accent Tokens */
         "brand-primary": "rgb(var(--accent) / <alpha-value>)",
         "brand-primary-light": "rgb(var(--accent-hover) / <alpha-value>)",
-        "brand-primary-dark": "#d9430f",
+        "brand-primary-dark": "#c48a10",
         "brand-accent": "rgb(var(--accent) / <alpha-value>)",
         "brand-accent-text": "rgb(var(--accent-text) / <alpha-value>)",
+        "on-accent": "rgb(var(--on-accent) / <alpha-value>)",
         "brand-orange": "rgb(var(--accent) / <alpha-value>)",
 
         /* Border Tokens */

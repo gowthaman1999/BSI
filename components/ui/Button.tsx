@@ -57,7 +57,7 @@ export function ActionButton({
 
   let variantStyles = "";
   if (variant === "primary") {
-    variantStyles = `group bg-brand-primary hover:bg-brand-primary-light text-white font-semibold shadow-cta hover:shadow-cta-hover hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 ${
+    variantStyles = `group bg-brand-primary hover:bg-brand-primary-light text-on-accent font-semibold shadow-cta hover:shadow-cta-hover hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 ${
       surface === "dark" ? "focus-visible:ring-offset-surface-dark" : "focus-visible:ring-offset-background"
     }`;
   } else if (variant === "secondary") {

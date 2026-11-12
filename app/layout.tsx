@@ -71,12 +71,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.variable} suppressHydrationWarning>
-      <body className="bg-background font-sans text-text-primary antialiased min-h-screen flex flex-col selection:bg-brand-primary selection:text-white transition-colors duration-200">
+      <body className="bg-background font-sans text-text-primary antialiased min-h-screen flex flex-col selection:bg-brand-primary selection:text-on-accent transition-colors duration-200">
         <ThemeProvider>
           {/* Accessible Skip Link */}
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-brand-primary focus:text-white focus:rounded-full focus:shadow-2xl focus:font-bold focus:outline-none focus:ring-2 focus:ring-brand-accent"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-brand-primary focus:text-on-accent focus:rounded-full focus:shadow-2xl focus:font-bold focus:outline-none focus:ring-2 focus:ring-brand-accent"
           >
             Skip to main content
           </a>

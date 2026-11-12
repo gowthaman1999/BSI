@@ -7,9 +7,10 @@ import {
   motion,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from "framer-motion";
-import { Section, Reveal, HERO_EASE } from "@/components/ui/Section";
+import { Section, Reveal, Parallax, HERO_EASE } from "@/components/ui/Section";
 import { EyebrowPill } from "@/components/ui/Heading";
 import { ActionButton } from "@/components/ui/Button";
 
@@ -22,16 +23,23 @@ export function HeroBento() {
     offset: ["start end", "end start"],
   });
 
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 95,
+    damping: 26,
+    mass: 0.28,
+    restDelta: 0.001,
+  });
+
   const parallaxY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
-    shouldReduceMotion ? ["0%", "0%"] : ["-5%", "5%"]
+    shouldReduceMotion ? ["0%", "0%"] : ["-7%", "7%"]
   );
 
   const parallaxScale = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
-    shouldReduceMotion ? [1, 1] : [1.06, 1]
+    shouldReduceMotion ? [1, 1] : [1.08, 1]
   );
 
   return (
@@ -110,39 +118,44 @@ export function HeroBento() {
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/65 via-transparent to-surface-dark/35"
         />
 
-        {/* Top-Left Frosted-Glass Track Record / Laurel Badge */}
-        <div className="absolute top-3.5 left-3.5 sm:top-6 sm:left-6 z-10 max-w-[225px] sm:max-w-[265px] rounded-[16px] sm:rounded-[20px] border border-white/[0.16] bg-surface-dark/60 p-3.5 sm:p-5 text-on-dark backdrop-blur-md shadow-2xl">
-          <div className="flex items-center justify-between gap-2">
-            <span className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-on-dark-muted">
-              Track Record
-            </span>
-            <CheckCircle2 className="h-4 w-4 text-brand-primary shrink-0" aria-hidden="true" />
-          </div>
+        {/* Top-Left Frosted-Glass Track Record / Laurel Badge with Counter-Drift */}
+        <Parallax
+          offset={16}
+          className="absolute top-3.5 left-3.5 sm:top-6 sm:left-6 z-10 max-w-[225px] sm:max-w-[265px]"
+        >
+          <div className="rounded-[16px] sm:rounded-[20px] border border-white/[0.16] bg-surface-dark/60 p-3.5 sm:p-5 text-on-dark backdrop-blur-md shadow-2xl">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-label-caps text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-on-dark-muted">
+                Track Record
+              </span>
+              <CheckCircle2 className="h-4 w-4 text-brand-primary shrink-0" aria-hidden="true" />
+            </div>
 
-          <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2 sm:gap-2.5">
-            <Image
-              src="/images/leafs.svg"
-              alt=""
-              width={42}
-              height={91}
-              className="h-9 sm:h-11 w-auto opacity-85"
-            />
-            <span className="font-display-hero text-[36px] sm:text-[44px] leading-none tracking-[-0.04em] font-semibold text-on-dark">
-              200+
-            </span>
-            <Image
-              src="/images/leafs.svg"
-              alt=""
-              width={42}
-              height={91}
-              className="h-9 sm:h-11 w-auto opacity-85 -scale-x-100"
-            />
-          </div>
+            <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2 sm:gap-2.5">
+              <Image
+                src="/images/leafs.svg"
+                alt=""
+                width={42}
+                height={91}
+                className="h-9 sm:h-11 w-auto opacity-85"
+              />
+              <span className="font-display-hero text-[36px] sm:text-[44px] leading-none tracking-[-0.04em] font-semibold text-on-dark">
+                200+
+              </span>
+              <Image
+                src="/images/leafs.svg"
+                alt=""
+                width={42}
+                height={91}
+                className="h-9 sm:h-11 w-auto opacity-85 -scale-x-100"
+              />
+            </div>
 
-          <p className="mt-2 sm:mt-2.5 text-center font-body-md text-[12px] sm:text-[13px] leading-snug text-white/85">
-            projects delivered over 8+ years, with 100% support.
-          </p>
-        </div>
+            <p className="mt-2 sm:mt-2.5 text-center font-body-md text-[12px] sm:text-[13px] leading-snug text-white/85">
+              projects delivered over 8+ years, with 100% support.
+            </p>
+          </div>
+        </Parallax>
 
         {/* Bottom-Right Subtle Studio Pill */}
         <div className="absolute bottom-3.5 right-3.5 sm:bottom-6 sm:right-6 z-10">

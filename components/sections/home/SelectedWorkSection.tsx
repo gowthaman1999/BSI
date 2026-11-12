@@ -3,7 +3,7 @@ import { ArrowUpRight, Activity, ShoppingBag, Compass, Trees } from "lucide-reac
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/data";
-import { Section, Reveal } from "@/components/ui/Section";
+import { Section, Reveal, ParallaxMedia } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/Heading";
 import { Card } from "@/components/ui/Card";
 
@@ -50,7 +50,7 @@ export function SelectedWorkSection() {
                 <Link
                   href="/portfolio"
                   aria-label={`Explore ${project.title}`}
-                  className="w-9 h-9 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-text-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-white group-hover:rotate-45 transition-all duration-300"
+                  className="w-9 h-9 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-text-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-on-accent group-hover:rotate-45 transition-all duration-300"
                 >
                   <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
@@ -63,15 +63,17 @@ export function SelectedWorkSection() {
               </p>
             </div>
 
-            {/* Visual Container with Hero Frosted Overlay */}
-            <div className="w-full h-56 bg-surface-dark rounded-[16px] sm:rounded-[20px] mt-6 border border-border relative overflow-hidden">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover opacity-85 group-hover:scale-105 transition-transform duration-700 ease-out"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+            {/* Visual Container with Smooth Parallax & Hero Frosted Overlay */}
+            <div className="w-full h-56 sm:h-64 bg-surface-dark rounded-[16px] sm:rounded-[20px] mt-6 border border-border relative overflow-hidden">
+              <ParallaxMedia fill range={["-8%", "8%"]} scaleRange={[1.09, 1.01]}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover opacity-85 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </ParallaxMedia>
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/80 via-surface-dark/35 to-surface-dark/25"

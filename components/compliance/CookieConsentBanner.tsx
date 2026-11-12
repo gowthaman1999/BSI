@@ -92,7 +92,7 @@ export function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleAcceptAll}
-                className="px-4 py-2 rounded-full bg-brand-primary hover:bg-brand-primary-light text-white text-xs font-semibold shadow-cta transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                className="px-4 py-2 rounded-full bg-brand-primary hover:bg-brand-primary-light text-on-accent text-xs font-semibold shadow-cta transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
               >
                 Accept All
               </button>
@@ -167,7 +167,7 @@ export function CookieConsentBanner() {
                   id="cookie-analytics"
                   checked={preferences.analytics}
                   onChange={(e) => setPreferences({ ...preferences, analytics: e.target.checked })}
-                  className="w-4 h-4 rounded accent-[#ff5a1f] cursor-pointer"
+                  className="w-4 h-4 rounded accent-[#eaac1f] cursor-pointer"
                   aria-label="Allow Analytics Cookies"
                 />
               </div>
@@ -182,7 +182,7 @@ export function CookieConsentBanner() {
                   id="cookie-functional"
                   checked={preferences.functional}
                   onChange={(e) => setPreferences({ ...preferences, functional: e.target.checked })}
-                  className="w-4 h-4 rounded accent-[#ff5a1f] cursor-pointer"
+                  className="w-4 h-4 rounded accent-[#eaac1f] cursor-pointer"
                   aria-label="Allow Functional Cookies"
                 />
               </div>
@@ -199,7 +199,7 @@ export function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleSavePreferences}
-                className="px-5 py-2.5 rounded-full bg-brand-primary hover:bg-brand-primary-light text-white text-xs font-semibold shadow-cta transition-all"
+                className="px-5 py-2.5 rounded-full bg-brand-primary hover:bg-brand-primary-light text-on-accent text-xs font-semibold shadow-cta transition-all"
               >
                 Save Preferences
               </button>

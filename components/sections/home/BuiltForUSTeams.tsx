@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Quote } from "lucide-react";
 import { BENEFITS_US_TEAMS, TESTIMONIAL } from "@/lib/data";
-import { Section, Reveal } from "@/components/ui/Section";
+import { Section, Reveal, ParallaxMedia } from "@/components/ui/Section";
 import { SectionHeading, EyebrowPill } from "@/components/ui/Heading";
 
 export function BuiltForUSTeams() {
@@ -42,14 +42,16 @@ export function BuiltForUSTeams() {
       <div className="rounded-[20px] sm:rounded-[24px] border border-border-dark bg-surface-dark-subtle/80 p-5 sm:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* Image */}
-          <div className="lg:col-span-5 h-64 lg:h-[300px] rounded-[16px] sm:rounded-[20px] overflow-hidden border border-white/[0.10] relative group">
-            <Image
-              src={TESTIMONIAL.image}
-              alt="Collaborative software engineering review"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
+          <div className="lg:col-span-5 h-64 lg:h-[320px] rounded-[16px] sm:rounded-[20px] overflow-hidden border border-white/[0.10] relative group">
+            <ParallaxMedia fill range={["-8%", "8%"]} scaleRange={[1.08, 1.01]}>
+              <Image
+                src={TESTIMONIAL.image}
+                alt="Collaborative software engineering review"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </ParallaxMedia>
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-surface-dark/20"

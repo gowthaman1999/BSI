@@ -28,12 +28,13 @@
     --fg-on-dark-muted: 202 198 195;
     --fg-on-dark-subtle: 163 159 156;
 
-    /* Brand Accent (Terracotta / Studio Orange) */
-    --accent: 255 90 31;
-    --accent-hover: 253 89 30;
-    --accent-text: 201 59 8; /* >= 4.9:1 contrast on light surfaces */
-    --accent-soft: rgba(255, 90, 31, 0.12);
-    --accent-glow: rgba(255, 90, 31, 0.20);
+    /* Brand Accent (Logo Gold #eaac1f) */
+    --accent: 234 172 31;
+    --accent-hover: 245 186 50;
+    --accent-text: 145 96 0; /* >= 5.1:1 contrast on light surfaces */
+    --on-accent: 18 18 18; /* 9.2:1 contrast on #eaac1f */
+    --accent-soft: rgba(234, 172, 31, 0.14);
+    --accent-glow: rgba(234, 172, 31, 0.22);
 
     /* Borders & Dividers */
     --border-subtle: rgba(18, 18, 18, 0.08);
@@ -52,8 +53,8 @@
     --shadow-card: 0 4px 24px -4px rgba(18, 18, 18, 0.04);
     --shadow-card-hover: 0 18px 44px -14px rgba(18, 18, 18, 0.10);
     --shadow-dark: 0 24px 80px -20px rgba(0, 0, 0, 0.45);
-    --shadow-cta: 0 12px 32px -8px rgba(255, 90, 31, 0.45);
-    --shadow-cta-hover: 0 16px 38px -8px rgba(255, 90, 31, 0.60);
+    --shadow-cta: 0 12px 32px -8px rgba(234, 172, 31, 0.42);
+    --shadow-cta-hover: 0 16px 38px -8px rgba(234, 172, 31, 0.56);
 
     /* Motion Tokens */
     --ease-hero: cubic-bezier(0.22, 1, 0.36, 1);
@@ -69,8 +70,8 @@
     --fg-muted: 202 198 195;
     --fg-subtle: 158 155 153;
 
-    --accent-text: 255 122 73;
-    --accent-soft: rgba(255, 90, 31, 0.18);
+    --accent-text: 244 191 58;
+    --accent-soft: rgba(234, 172, 31, 0.18);
 
     --border-subtle: rgba(255, 255, 255, 0.09);
     --border-strong: rgba(255, 255, 255, 0.18);
@@ -93,7 +94,7 @@
 
   ::selection {
     background-color: rgb(var(--accent));
-    color: rgb(var(--fg-on-dark));
+    color: rgb(var(--on-accent));
   }
 }
 
@@ -102,8 +103,8 @@
   .hero-surface-dark {
     background-color: rgb(var(--bg-dark));
     background-image:
-      radial-gradient(62% 58% at 80% 26%, rgba(255, 90, 31, 0.20) 0%, rgba(253, 89, 30, 0.07) 44%, transparent 74%),
-      radial-gradient(50% 45% at 64% 62%, rgba(255, 90, 31, 0.10) 0%, transparent 70%),
+      radial-gradient(62% 58% at 80% 26%, rgba(234, 172, 31, 0.18) 0%, rgba(245, 186, 50, 0.07) 44%, transparent 74%),
+      radial-gradient(50% 45% at 64% 62%, rgba(234, 172, 31, 0.09) 0%, transparent 70%),
       linear-gradient(180deg, rgb(var(--bg-dark-elevated)) 0%, rgb(var(--bg-dark)) 55%, rgb(var(--bg-dark-deep)) 100%);
   }
 
@@ -122,7 +123,7 @@
 
   /* Subtle light surface radial warmth */
   .hero-surface-light-glow {
-    background-image: radial-gradient(55% 60% at 85% 15%, rgba(255, 90, 31, 0.06) 0%, transparent 70%);
+    background-image: radial-gradient(55% 60% at 85% 15%, rgba(234, 172, 31, 0.07) 0%, transparent 70%);
   }
 }
 

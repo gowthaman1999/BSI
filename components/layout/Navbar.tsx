@@ -23,7 +23,7 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border shadow-xs transition-colors duration-200">
-      <div className="h-20 max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4">
+      <div className="h-20 w-full px-4 sm:px-8 lg:px-10 xl:px-14 flex items-center justify-between gap-4">
         {/* Brand Logo with Crisp Light & Dark Mode Variants */}
         <Link
           href="/"

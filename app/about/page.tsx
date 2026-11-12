@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { ShieldCheck, HeartHandshake, Code2, Users, Layers, Zap } from "lucide-react";
-import { PageShell, Section, Reveal } from "@/components/ui/Section";
+import { PageShell, Section, Reveal, ParallaxMedia } from "@/components/ui/Section";
 import { SectionHeading, EyebrowPill } from "@/components/ui/Heading";
 import { Card, TagChip } from "@/components/ui/Card";
 import { ActionButton } from "@/components/ui/Button";
@@ -115,14 +115,16 @@ export default function AboutPage() {
           <div className="lg:col-span-5">
             <Reveal immediate delay={0.15}>
               <div className="relative rounded-[18px] sm:rounded-[22px] overflow-hidden border border-white/[0.12] bg-surface-dark-subtle h-[300px] sm:h-[360px] shadow-dark-card group">
-                <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk8H5D_lGy_eNTZOf-OmrfUXS7-CwwCvkecmtHk17g3y8JVX9dSxAaJyOku8uOfmC8y3phEv3eDILiTqx3JUv9xS4iJDxFr7TgL0Tp4d1-_mBh0B2McUgEozYJnJEIPfhRRxmlcIf1a1UM9v_UZG8v5UvHXx8oObZ8KZXnQFVkiR3gCC3MAlAf5SZmkGfU9J7mpkThcV4Rm_8BETFIQgGLOvKPql_KWaAbTCehoPnk"
-                  alt="Blackstone Studio Engineering Desk"
-                  fill
-                  priority
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                />
+                <ParallaxMedia fill range={["-8%", "8%"]} scaleRange={[1.08, 1.01]}>
+                  <Image
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk8H5D_lGy_eNTZOf-OmrfUXS7-CwwCvkecmtHk17g3y8JVX9dSxAaJyOku8uOfmC8y3phEv3eDILiTqx3JUv9xS4iJDxFr7TgL0Tp4d1-_mBh0B2McUgEozYJnJEIPfhRRxmlcIf1a1UM9v_UZG8v5UvHXx8oObZ8KZXnQFVkiR3gCC3MAlAf5SZmkGfU9J7mpkThcV4Rm_8BETFIQgGLOvKPql_KWaAbTCehoPnk"
+                    alt="Blackstone Studio Engineering Desk"
+                    fill
+                    priority
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                </ParallaxMedia>
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"

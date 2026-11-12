@@ -68,8 +68,8 @@ export function LegalPageLayout({
 
       {/* Document Surface */}
       <Section surface="plain">
-        <Card surface="light" padding="lg" hoverable={false} className="max-w-[1000px] mx-auto w-full">
-          <article className="max-w-none flex flex-col gap-8 text-text-muted leading-relaxed text-[15px]">
+        <Card surface="light" padding="lg" hoverable={false} className="w-full">
+          <article className="max-w-[78ch] flex flex-col gap-8 text-text-muted leading-relaxed text-[15px]">
             {children}
           </article>
         </Card>

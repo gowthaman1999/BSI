@@ -8,6 +8,7 @@ import { type ServiceItem } from "@/lib/data";
 import { Card, TagChip } from "@/components/ui/Card";
 import { ActionButton } from "@/components/ui/Button";
 import { EyebrowPill } from "@/components/ui/Heading";
+import { ParallaxMedia } from "@/components/ui/Section";
 
 interface ServiceCardProps {
   service: ServiceItem;
@@ -57,13 +58,15 @@ export function ServiceCard({ service }: ServiceCardProps) {
       <div
         className={`relative rounded-[16px] overflow-hidden border border-border bg-surface-subtle ${heightClass}`}
       >
-        <Image
-          src={service.image}
-          alt={service.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+        <ParallaxMedia fill range={["-9%", "9%"]} scaleRange={[1.1, 1.02]}>
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </ParallaxMedia>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/60 via-transparent to-transparent"
@@ -99,7 +102,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           </span>
           <Link
             href="/services"
-            className="w-9 h-9 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-text-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-white group-hover:rotate-45 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+            className="w-9 h-9 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-text-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-on-accent group-hover:rotate-45 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
             aria-label={`Learn more about ${service.title}`}
           >
             <ArrowUpRight className="w-4 h-4" aria-hidden="true" />

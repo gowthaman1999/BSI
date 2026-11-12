@@ -6,14 +6,14 @@ import { SITE_CONFIG } from "@/lib/data";
 
 export function Footer() {
   return (
-    <footer className="w-full px-3 sm:px-4 lg:px-5 pb-3 sm:pb-5 mt-auto" aria-label="Site Footer">
+    <footer className="w-full px-3 sm:px-5 lg:px-6 xl:px-8 pb-3 sm:pb-5 mt-auto" aria-label="Site Footer">
       <div className="relative overflow-hidden rounded-[22px] sm:rounded-[28px] lg:rounded-[32px] hero-surface-dark border border-border-dark text-on-dark shadow-dark-card">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-60 hero-diagonal-pattern"
         />
 
-        <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16 flex flex-col gap-12">
+        <div className="relative z-10 w-full px-5 sm:px-8 lg:px-12 xl:px-14 py-12 sm:py-16 flex flex-col gap-12">
           {/* Top Columns */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 items-start">
             {/* Brand Info (4 cols) */}

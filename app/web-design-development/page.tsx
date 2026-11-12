@@ -10,7 +10,7 @@ import {
   Zap,
 } from "lucide-react";
 import { PROJECTS } from "@/lib/data";
-import { PageShell, Section, Reveal } from "@/components/ui/Section";
+import { PageShell, Section, Reveal, ParallaxMedia } from "@/components/ui/Section";
 import { SectionHeading, EyebrowPill } from "@/components/ui/Heading";
 import { Card, TagChip } from "@/components/ui/Card";
 import { ActionButton } from "@/components/ui/Button";
@@ -210,13 +210,15 @@ export default function WebDesignDevelopmentPage() {
         <Card surface="light" padding="lg" hoverable={false}>
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             <div className="w-full lg:w-1/2 h-72 sm:h-96 rounded-[18px] sm:rounded-[22px] overflow-hidden relative border border-border bg-surface-dark">
-              <Image
-                src={puretone.image}
-                alt={puretone.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <ParallaxMedia fill range={["-8%", "8%"]} scaleRange={[1.08, 1.01]}>
+                <Image
+                  src={puretone.image}
+                  alt={puretone.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </ParallaxMedia>
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/75 via-transparent to-transparent"

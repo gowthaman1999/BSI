@@ -8,6 +8,7 @@ import { PROJECTS } from "@/lib/data";
 import { Card, TagChip } from "@/components/ui/Card";
 import { EyebrowPill } from "@/components/ui/Heading";
 import { ActionButton } from "@/components/ui/Button";
+import { ParallaxMedia } from "@/components/ui/Section";
 
 const CATEGORIES = [
   "All",
@@ -77,13 +78,15 @@ export function PortfolioGallery() {
 
             {/* Media Box */}
             <div className="w-full h-56 sm:h-72 rounded-[16px] sm:rounded-[20px] overflow-hidden mt-6 relative border border-border bg-surface-dark">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
+              <ParallaxMedia fill range={["-8%", "8%"]} scaleRange={[1.09, 1.01]}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                />
+              </ParallaxMedia>
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"

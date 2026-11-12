@@ -182,7 +182,7 @@ export default function ServicesPage() {
                   <span
                     className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-wide ${
                       model.highlight
-                        ? "bg-brand-primary text-white"
+                        ? "bg-brand-primary text-on-accent"
                         : "bg-surface-subtle border border-border text-text-muted"
                     }`}
                   >
